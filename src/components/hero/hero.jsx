@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./hero.styles.scss";
+import "./hero.scss";
 
 const Hero = () => {
   const images = require.context("../../assets", true);
