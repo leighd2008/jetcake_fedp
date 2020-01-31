@@ -15,6 +15,9 @@ const Hero = () => {
             backgroundImage: `url(${imgsrc})`
           }}
         />
+        <div className="content">
+          <h5 className="title">Photo by Jay Heike on Unsplash</h5>
+        </div>
       </div>
       <div className="heroinfo">
         <h1 className="title">What is a HERO?</h1>
