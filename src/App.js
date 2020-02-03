@@ -7,6 +7,7 @@ import HomePage from "./pages/homepage/homepage";
 import ProfilePage from "./pages/profilepage/profilepage";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up-page/sign-in-and-sign-up-page";
 import Header from "./components/header/header";
+import Footer from "./components/footer/footer";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 class App extends React.Component {
@@ -52,6 +53,7 @@ class App extends React.Component {
           <Route path="/profile" component={ProfilePage} />
           <Route path="/signin" component={SignInAndSignUpPage} />
         </Switch>
+        <Footer />
       </div>
     );
   }

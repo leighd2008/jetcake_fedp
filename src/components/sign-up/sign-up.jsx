@@ -3,13 +3,19 @@ import React from "react";
 import FormInput from "../form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+  handlePhotoUpload
+} from "../../firebase/firebase.utils";
 
 import "./sign-up.scss";
 
 class SignUp extends React.Component {
   constructor() {
     super();
+
+    this.fileInput = React.createRef();
 
     this.state = {
       displayName: "",
@@ -31,6 +37,8 @@ class SignUp extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
+    let file = this.fileInput.current.files[0];
+    console.log(file);
 
     const {
       displayName,
@@ -73,6 +81,8 @@ class SignUp extends React.Component {
         securityAnswer2,
         securityAnswer3
       });
+
+      await handlePhotoUpload(user, file);
 
       this.setState({
         displayName: "",
@@ -152,15 +162,18 @@ class SignUp extends React.Component {
             label="Email"
             required
           />
-          <FormInput
+          <span>Profile Picture</span>
+          <br />
+          <input
             type="file"
+            ref={this.fileInput}
             name="photo"
             value={photo}
             onChange={this.handleChange}
             label="Profile Picture"
-            // required
+            required
           />
-          {/* <FormInput
+          <FormInput
             type="text"
             maxLength={10}
             name="phoneNumber"
@@ -168,32 +181,32 @@ class SignUp extends React.Component {
             onChange={this.handleChange}
             label="Please enter 10 digit phone number, numbers only"
             required
-          /> */}
-          {/* <FormInput
+          />
+          <FormInput
             type="text"
             name="address"
             value={address}
             onChange={this.handleChange}
             label="Street Address"
-            // required
-          /> */}
-          {/* <FormInput
+            required
+          />
+          <FormInput
             type="text"
             name="city"
             value={city}
             onChange={this.handleChange}
             label="City"
-            // required
-          /> */}
-          {/* <FormInput
+            required
+          />
+          <FormInput
             type="text"
             name="addressState"
             value={addressState}
             onChange={this.handleChange}
             label="State"
-            // required
-          /> */}
-          {/* <FormInput
+            required
+          />
+          <FormInput
             type="text"
             maxLength={5}
             name="zipCode"
@@ -201,8 +214,8 @@ class SignUp extends React.Component {
             onChange={this.handleChange}
             label="Please enter 5 digit zip code"
             required
-          /> */}
-          {/* <FormInput
+          />
+          <FormInput
             type="text"
             maxLength={8}
             name="dob"
@@ -210,8 +223,8 @@ class SignUp extends React.Component {
             onChange={this.handleChange}
             label="Please enter Date of Birth as mmddyyyy"
             required
-          /> */}
-          {/* <FormInput
+          />
+          <FormInput
             type="text"
             name="securityAnswer1"
             value={securityAnswer1}
@@ -234,7 +247,7 @@ class SignUp extends React.Component {
             onChange={this.handleChange}
             label="What is your mother's maiden name?"
             required
-          /> */}
+          />
           <FormInput
             type="password"
             name="password"

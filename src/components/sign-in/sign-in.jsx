@@ -12,7 +12,10 @@ class SignIn extends React.Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      securityAnswer1: "",
+      securityAnswer2: "",
+      securityAnswer3: ""
     };
   }
 
@@ -36,6 +39,13 @@ class SignIn extends React.Component {
   };
 
   render() {
+    const {
+      email,
+      password,
+      securityAnswer1,
+      securityAnswer2,
+      securityAnswer3
+    } = this.state;
     return (
       <div className="sign-in">
         <h2>I already have an account</h2>
@@ -45,15 +55,39 @@ class SignIn extends React.Component {
           <FormInput
             name="email"
             type="email"
-            value={this.state.email}
+            value={email}
             handleChange={this.handleChange}
             label="Email"
             required
           />
           <FormInput
+            type="text"
+            name="securityAnswer1"
+            value={securityAnswer1}
+            onChange={this.handleChange}
+            label="What is the name of your first pet?"
+            required
+          />
+          <FormInput
+            type="text"
+            name="securityAnswer2"
+            value={securityAnswer2}
+            onChange={this.handleChange}
+            label="What is your father's middle name?"
+            required
+          />
+          <FormInput
+            type="text"
+            name="securityAnswer3"
+            value={securityAnswer3}
+            onChange={this.handleChange}
+            label="What is your mother's maiden name?"
+            required
+          />
+          <FormInput
             name="password"
             type="password"
-            value={this.state.password}
+            value={password}
             handleChange={this.handleChange}
             label="Password"
             required

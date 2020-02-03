@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import "firebase/storage";
 
 const config = {
   apiKey: "AIzaSyAR4Yqf-WGlaaSGl0cSThf84sx-C1IP6Is",
@@ -36,11 +37,24 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
       console.log("error creating user", error.message);
     }
   }
-
   return userRef;
+};
+
+export const handlePhotoUpload = async (userAuth, file) => {
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  console.log(file);
+  let storageRef = storage.ref();
+  let ProfileImageRef = storageRef.child(`images/${file.name}`);
+  ProfileImageRef.put(file).then(snapShot => {
+    ProfileImageRef.getDownloadURL().then(url => {
+      userRef.set({ photo: url }, { merge: true });
+    });
+  });
 };
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
-
-export default firebase;
+export const storage = firebase.storage();
